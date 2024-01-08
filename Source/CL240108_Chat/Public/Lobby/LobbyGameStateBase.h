@@ -20,9 +20,20 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DecreasePlayerCount();
 
+
 protected:
-	UPROPERTY(Replicated)
+	UPROPERTY(ReplicatedUsing="OnRep_PlayerCount", BlueprintReadOnly, meta = (AllowPritaveAccess = "true"))
 	int32 PlayerCount;
-	
-	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const;
+
+	virtual void GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const override;
+
+public:
+	int32 LeftTime = 60;
+
+	UFUNCTION()
+	void OnRep_PlayerCount();
+
+	UFUNCTION(NetMulticast, Unreliable)
+	void S2A_UpdateLeftTime(int InLeftTime);
+	void S2A_UpdateLeftTime_Implementation(int InLeftTime);
 };

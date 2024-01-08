@@ -17,4 +17,8 @@ class CL240108_CHAT_API ALobbyGameMode : public AGameModeBase
 public:
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 	virtual void Logout(AController* Exiting) override;
+
+	virtual void BeginPlay() override;
+
+	void UpdateLeftTime();
 };
